@@ -1,0 +1,23 @@
+{
+  "name": "hnfeed",
+  "version": "1.0.0",
+  "description": "little web to show hacker news feed",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niccontrerasf/hnfeed.git"
+  },
+  "author": "Nicolas Contreras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niccontrerasf/hnfeed/issues"
+  },
+  "homepage": "https://github.com/niccontrerasf/hnfeed#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.1"
+  }
+}
