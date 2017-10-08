@@ -1,13 +1,13 @@
 'use strict'
-var db = require('./connection.js');
+var conn = require('./connection.js');
 var request = require('request');
 var moment = require('moment');
-var url = db.url;
+var url = conn.url;
 
 
 //check if hit already and return count (should be 1 or 0)
 function existe(ide, dat, callback){
-    db.MongoClient.connect(url, function(err, db) {
+    conn.MongoClient.connect(url, function(err, db) {
         if (err) throw err;
         db.collection("hit").find({ objectID:ide, created_at_i:dat}).toArray(function(err, result) {
             if (err) throw err;
@@ -16,6 +16,35 @@ function existe(ide, dat, callback){
         });
     });
 }
+
+
+//get all hits from db sort by date
+exports.getHits = (cb)=>{
+    conn.MongoClient.connect(url, function(err, db) {
+        if (err) throw err;
+        db.collection("hit").find({}).sort({created_at:-1}).toArray(function(err, result) {
+            if (err) throw err;
+            //lo(result.length);
+            db.close();
+            cb(result);
+        });
+    });
+}
+
+//delete 1 element by id and return success for ajax validation
+exports.remo = (id,cb)=>{
+    conn.MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var myquery = { _id: id };
+    db.collection("hit").deleteOne(myquery, function(err, obj) {
+        if (err) throw err;
+        if (obj.result.n >= 1) console.log("1 document deleted");
+        db.close();
+        cb(obj.result.n);
+        });
+    });
+}
+
 
 //search for new hits if it exist insert them to db
 exports.anynews = function (){
@@ -35,7 +64,7 @@ exports.anynews = function (){
                     urdy++;
                     if(urdy == fin){
                         if(narr.length){
-                             db.MongoClient.connect(url, function(err, db) {
+                             conn.MongoClient.connect(url, function(err, db) {
                                  lo("======== trying to insert "+narr.length+" ===========");
                                     if (err) throw err;
                                     db.collection("hit").insertMany(narr,(err, res)=>{

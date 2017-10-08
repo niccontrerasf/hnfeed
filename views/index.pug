@@ -6,14 +6,29 @@ block content
     var j = !{JSON.stringify(news)}
     //console.log(!{news.length});
     
+    function dele(id){
+        $.ajax({
+            type: "POST",
+            url: "/delete/"+id,
+            success: function(data){
+                if(data.fin == 1){     
+                    $('#'+id).fadeOut( "slow", function() {
+                        $('#'+id).remove();
+                    });
+                }
+            }
+        });
+    }
+    
+    /*
     setTimeout(function(){
         window.location.reload(1);
     }, 60000);
+    */
     
-  div.container-fluid
+  div#alli.container-fluid
     for i in news
-      div.row.ll.ho
-        - var ide = 8; //contains delete bd id
+      div.row.ll.ho(id= i._id)
         - var ur = i.url || i.story_url || "none";
         - var ti = i.title || i.story_title;
         
@@ -23,5 +38,5 @@ block content
             span.author - #{i.author} -
           div.col-sm-3
             span.tim!= moment(i.created_at).startOf('hour').fromNow()
-          div.col-sm-1.del(onclick="alert("+ide+")")
+          div.col-sm-1.del(onclick="dele("+i._id+")")
             span.glyphicon.glyphicon-trash

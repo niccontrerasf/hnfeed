@@ -2,32 +2,29 @@ var express = require('express');
 var router = express.Router();
 var request = require('request');
 var mongo = require('mongodb');
+var tx = require('../db_fun.js');
 
 //no valid url link
 router.get("/none",(req,res)=>{
     res.end("There is no valid url");
 });
 
+//home get all document from db and sent as JSON to pug template
 router.get("/",(req,res)=>{
-    
-    request.get('https://hn.algolia.com/api/v1/search_by_date?query=nodejs','',function(err,respo,body){
-        var bodyjson = JSON.parse(body);
-        bodyjson = bodyjson.hits
-        if(err)
-            console.log("Error: "+err);
-        else{
-            for(var i in bodyjson){
-                console.log(bodyjson[i].objectID);
-            }
-            //console.log(bodyjson);
-        }
-
+    tx.getHits((cb)=>{
+        var bjson = cb;
         res.render("index", {
             title:"HN Feed",
             user : "pop",
-            news : bodyjson
+            news : bjson
         });
-    });        
+    });
+});
+
+router.post("/delete/:id",(req,res)=>{
+    tx.remo(req.params.id,(cb)=>{
+        res.jsonp({fin:cb});//return from db        
+    });
 });
 
 
