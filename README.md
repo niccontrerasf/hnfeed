@@ -33,6 +33,8 @@ When you start the app `node app.js` automatically it will check if there is new
 
 If you need to force the check for new posts just restart the app. `node app.js`
 
+You can read node logs for every db transaction (deletes and inserts) and the time of the last check for new posts.
+
 
 ## Preview
 ![alt text](https://raw.githubusercontent.com/niccontrerasf/hnfeed/master/Captura.PNG)
