@@ -1,0 +1,27 @@
+extends layout
+
+block content
+ 
+  script.
+    var j = !{JSON.stringify(news)}
+    //console.log(!{news.length});
+    
+    setTimeout(function(){
+        window.location.reload(1);
+    }, 60000);
+    
+  div.container-fluid
+    for i in news
+      div.row.ll.ho
+        - var ide = 8; //contains delete bd id
+        - var ur = i.url || i.story_url || "none";
+        - var ti = i.title || i.story_title;
+        
+        if ti != null
+          div.col-sm-8(onclick='window.open("'+ur+'","_blank")')
+            span #{ti} 
+            span.author - #{i.author} -
+          div.col-sm-3
+            span.tim!= moment(i.created_at).startOf('hour').fromNow()
+          div.col-sm-1.del(onclick="alert("+ide+")")
+            span.glyphicon.glyphicon-trash

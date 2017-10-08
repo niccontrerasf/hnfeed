@@ -1,0 +1,41 @@
+body{
+    padding: 2px;
+}
+.dupp{
+    background: #404040;
+    font-family: sans-serif;
+    color: white;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.ll{
+    background-color: #fff;
+    border: 1px #ccc;    
+    font-size: 13pt;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #999;
+}
+
+.tim{
+    color:#333;
+}
+
+.author{
+    color: #999;
+}
+
+.ho:hover{
+    background-color: #fafafa;
+}
+
+.ho:hover span{
+    #color: red;
+    visibility:visible;
+}
+
+.del span{
+    visibility: hidden;
+}
