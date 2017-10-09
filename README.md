@@ -39,10 +39,3 @@ You can read node logs for every db transaction (deletes and inserts) and the ti
 ## Preview
 ![alt text](https://raw.githubusercontent.com/niccontrerasf/hnfeed/master/Captura.PNG)
 
-
-
-
-
-
-
-
