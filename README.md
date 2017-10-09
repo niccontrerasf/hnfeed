@@ -2,9 +2,11 @@
 Little web to show hacker news feed from [https://hn.algolia.com/api](https://hn.algolia.com/api/v1/search_by_date?query=nodejs) api.
 
 ## Exceptions:
-Validation of same story and different author (comments at same post) is not descriminated (_tags[2], "story_id")
+There are 2 ambiguities so I left them apart and implemented as I describe below.
 
-If you delete a post it wont be banned (_tags[2], "story_id"), so it will be reinserted in the next hour refresh.
+1.-Validation of same story and different author (2 or more comments at same post) is not discriminated (_tags[2], "story_id") so it will print rows with same title but different author as shown in the picture below.
+
+2.-PDF says "One a post is deleted it should not reappear." what is a little ambiguous because there are some possibilities. If you delete a post it wont be banned the id_story (_tags[2], "story_id"), so it will be reinserted in the next hour refresh if it still available.
 
 ## Before start
 `mongodb` have to be running. Te connection string is set by default (`port 27017`). If you want to edit it you can find the connection string in the file `connection.js`
